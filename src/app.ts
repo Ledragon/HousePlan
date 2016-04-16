@@ -20,11 +20,8 @@ module app {
                     'fill': '#efefef'
                 });
             var room = svg.append('g')
+                .attr('transform', 'translate(10,10)')
                 .classed('room', true);
-            // .style({
-            //     'transform': 'rotate(180deg)',
-            //     'transform-origin': 'center'
-            // });
             var xScale = d3.scale.linear()
                 .range([0, 100])
                 .domain([0, 100]);
@@ -34,31 +31,41 @@ module app {
 
             var lineGenerator = d3.svg.line()
                 .x(d => xScale(d[0]))
-                .y(d => yScale(d[1]))
-                ;
-            var v1 = 109.5 + 114;
-            var v2 = v1 + 116.5;
-            var v3 = v2 + 16;
-            var v4 = v3 - 140;
-            var v5 = v4 - 80;
-            var v6 = v5 - 113;
+                .y(d => yScale(d[1]));
+            
+            var y1 = 140;
+            var y2 = y1 + 80;
+            var y3 = y2 + 135;
+
+            var x1 = 18.5;
+            var x2 = x1 + 156;
+            var x3 = x2 + 127;
+
+            var y11 = y3 - 109.5;
+            var y12 = y11 - 114;
+            var y13 = y12 - 116.5;
+
+            var x11 = x3 - 32;
+            var x12 = x3 - 170;
+
             var points: [number, number][] = [
                 [0, 0],
-                [0, 109.5],
-                [32, 109.5],
-                [32, v1],
-                [0, v1],
-                [0, v2],
-                [170, v2],
-                [170, v3],
-                [300, v3],
-                [300, v4],
-                [300, v5],
-                [300, v6],
-                [300-18.5, v6],
-                [300-18.5-156, v6],
-                [300-18.5-156-127, v6]
+                [0, y1],
+                [0, y2],
+                [0, y3],
+                [x1, y3],
+                [x2, y3],
+                [x3, y3],
+                [x3, y11],
+                [x11, y11],
+                [x11, y12],
+                [x3, y12],
+                [x3, y13],
+                [x12, y13],
+                [x12, 0],
+                [0, 0]
             ];
+            
             room.append('path')
                 .attr('d', lineGenerator(points));
 
