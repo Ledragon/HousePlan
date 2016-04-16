@@ -20,6 +20,7 @@ module app {
                     'fill': '#efefef'
                 });
             var room = svg.append('g')
+                .classed('room', true);
             // .style({
             //     'transform': 'rotate(180deg)',
             //     'transform-origin': 'center'
@@ -30,42 +31,37 @@ module app {
             var yScale = d3.scale.linear()
                 .range([0, 100])
                 .domain([0, 100]);
-            var walls: wall[] = [
-                new wall(0, 0, 0, 109.5),
-                new wall(0, 109.5, 32, 109.5),
-                new wall(32, 109.5, 32, 109.5 + 114),
-                new wall(32, 109.5 + 114, 0, 109.5 + 114),
-                new wall(0, 109.5 + 114, 0, 109.5 + 114 + 116),
+
+            var lineGenerator = d3.svg.line()
+                .x(d => xScale(d[0]))
+                .y(d => yScale(d[1]))
+                ;
+            var v1 = 109.5 + 114;
+            var v2 = v1 + 116.5;
+            var v3 = v2 + 16;
+            var v4 = v3 - 140;
+            var v5 = v4 - 80;
+            var v6 = v5 - 113;
+            var points: [number, number][] = [
+                [0, 0],
+                [0, 109.5],
+                [32, 109.5],
+                [32, v1],
+                [0, v1],
+                [0, v2],
+                [170, v2],
+                [170, v3],
+                [300, v3],
+                [300, v4],
+                [300, v5],
+                [300, v6],
+                [300-18.5, v6],
+                [300-18.5-156, v6],
+                [300-18.5-156-127, v6]
             ];
-            room.selectAll('.wall')
-                .data(walls)
-                .enter()
-                .append('g')
-                .classed('wall', true)
-                .append('line')
-                .attr({
-                    'x1': d => xScale(d.x1),
-                    'y1': d => xScale(d.y1),
-                    'x2': d => xScale(d.x2),
-                    'y2': d => xScale(d.y2)
-                });
+            room.append('path')
+                .attr('d', lineGenerator(points));
 
-        }
-    }
-
-    class wall {
-        x1: number;
-        y1: number;
-        x2: number;
-        y2: number;
-        constructor(x1: number,
-            y1: number,
-            x2: number,
-            y2: number) {
-            this.x1 = x1;
-            this.y1 = y1;
-            this.x2 = x2;
-            this.y2 = y2;
         }
     }
 }
