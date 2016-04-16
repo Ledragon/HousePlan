@@ -4,13 +4,17 @@ module app {
         private width = 800;
         private height = 600;
         private _room: d3.Selection<any>;
+        private _container: d3.Selection<any>;
         constructor() {
-            var svg = d3.select('#container')
+            this._container = d3.select('#container')
                 .append('svg')
                 .attr({
                     'width': this.width,
                     'height': this.height
-                });
+                })
+                .append('g')
+                .classed('plan',true);
+            var svg = this._container
             svg.append('rect')
                 .attr({
                     width: this.width,
