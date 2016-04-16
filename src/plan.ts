@@ -55,7 +55,7 @@ module app {
                 });
             room.append('text')
                 .attr({
-                    'transform': `translate(${this._xScale((xMax) / 2)},${this._yScale((yMax) / 2)})`
+                    'transform': `translate(${this._xScale((xMax+xMin) / 2)},${this._yScale((yMax+yMin) / 2)})`
                 })
                 .style({
                     'text-transform': 'uppercase',
