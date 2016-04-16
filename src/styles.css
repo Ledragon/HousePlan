@@ -2,3 +2,9 @@ line, path, .wall{
     stroke: black;
     stroke-width: 1px;
 }
+.wall{
+    fill:#555;
+}
+.door path{
+    fill:rgba(50,155,205, 1);
+}

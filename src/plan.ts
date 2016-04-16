@@ -84,6 +84,23 @@ module app {
             return wall;
         }
 
+        public addDoor(container: d3.Selection<any>, cx: number, cy: number, size: number): d3.Selection<any> {
+            var door = container.append('g')
+                .classed('door', true)
+                .attr('transform', `translate(${this._xScale(cx)},${this._yScale(cy)})`);
+            var arc = d3.svg.arc()
+                .outerRadius(size);
+            door.append('path')
+                .attr('d', arc({
+                    startAngle: Math.PI / 2,
+                    endAngle: Math.PI,
+                    innerRadius: 0,
+                    outerRadius: size,
+                    padAngle: 0
+                }))
+            return door;
+        }
+
         public xScale() {
             return this._xScale;
         }

@@ -5,11 +5,15 @@ module app {
             this._plan = new plan(containerId);
             var hallPoints = this.createHall();
             var points = this.createOffice();
+            var bathroomPoints = this.createBathroom();
 
             var wall1 = this._plan.addWall(16, 108);
             var hall = this._plan.createRoom(hallPoints, 'hall', 'rgba(205, 155, 50,0.5)');
             var wall2 = this._plan.addWall(11.5, 133);
             var office = this._plan.createRoom(points, 'bureau', 'rgba(205,50,155,0.5)');
+            var bathroom = this._plan.createRoom(bathroomPoints, 'WC', 'rgba(205,5,205,0.5)');
+            var bathroomWall = this._plan.addWall(17.5, 13.5);
+            var officeDoor = this._plan.addDoor(office, 0, 140, 80);
 
             var xScale = this._plan.xScale();
             var yScale = this._plan.yScale();
@@ -24,6 +28,11 @@ module app {
             var officeHeight = yScale(d3.max(points, p => p[1]));
 
             var totalHeight = officeHeight;
+
+            var bathroomXTranslate = hallWidth - xScale(d3.max(bathroomPoints, p => p[0]))+xScale(17.5);
+            var bathroomYTranslate = yScale(140 ) - yScale(d3.max(bathroomPoints, p => p[1]));
+            bathroom.attr('transform', `translate(${bathroomXTranslate},${bathroomYTranslate})`);
+            bathroomWall.attr('transform', `translate(${bathroomXTranslate-xScale(17.5)},${bathroomYTranslate - yScale(13.5)})`);
 
 
             var wall1XTranslate = 0;
@@ -74,7 +83,16 @@ module app {
             ];
             return points;
         }
-
+        private createBathroom(): Array<[number, number]> {
+            105, 84, 107
+            var points: Array<[number, number]> = [
+                [0, 0],
+                [0, -105],
+                [84, -105],
+                [84, 2]
+            ]
+            return points;
+        }
         private createOffice(): Array<[number, number]> {
             var y1 = 140;
             var y2 = y1 + 80;
