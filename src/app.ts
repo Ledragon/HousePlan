@@ -19,20 +19,11 @@ module app {
                 .style({
                     'fill': '#efefef'
                 });
-            var room = svg.append('g')
-                .attr('transform', 'translate(10,10)')
-                .classed('room', true);
-            var xScale = d3.scale.linear()
-                .range([0, 100])
-                .domain([0, 100]);
-            var yScale = d3.scale.linear()
-                .range([0, 100])
-                .domain([0, 100]);
 
-            var lineGenerator = d3.svg.line()
-                .x(d => xScale(d[0]))
-                .y(d => yScale(d[1]));
-            
+            this.createOffice(svg);
+        }
+
+        private createOffice(container: d3.Selection<any>) {
             var y1 = 140;
             var y2 = y1 + 80;
             var y3 = y2 + 135;
@@ -65,10 +56,39 @@ module app {
                 [x12, 0],
                 [0, 0]
             ];
-            
-            room.append('path')
-                .attr('d', lineGenerator(points));
+            this.createRoom(container, points, 'bureau')
+                .attr('transform','translate(10,10)');
+        }
 
+        private createRoom(container: d3.Selection<any>, points: Array<[number, number]>, name: string): d3.Selection<any> {
+            var room = container.append('g')
+                .attr('id', name)
+                .classed('room', true);
+            var xScale = d3.scale.linear()
+                .range([0, 100])
+                .domain([0, 100]);
+            var yScale = d3.scale.linear()
+                .range([0, 100])
+                .domain([0, 100]);
+            var xMax = d3.max(points, p => p[0]);
+            var yMax = d3.max(points, p => p[1]);
+
+            var lineGenerator = d3.svg.line()
+                .x(d => xScale(d[0]))
+                .y(d => yScale(d[1]));
+            var path = room.append('path')
+                .attr('d', lineGenerator(points));
+            room.append('text')
+                .attr({
+                    'transform': `translate(${xMax / 2},${yMax / 2})`
+
+                })
+                .style({
+                    'text-transform': 'uppercase',
+                    'text-anchor': 'middle'
+                })
+                .text(name);
+            return room;
         }
     }
 }

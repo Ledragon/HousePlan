@@ -19,18 +19,9 @@ var app;
                 .style({
                 'fill': '#efefef'
             });
-            var room = svg.append('g')
-                .attr('transform', 'translate(10,10)')
-                .classed('room', true);
-            var xScale = d3.scale.linear()
-                .range([0, 100])
-                .domain([0, 100]);
-            var yScale = d3.scale.linear()
-                .range([0, 100])
-                .domain([0, 100]);
-            var lineGenerator = d3.svg.line()
-                .x(function (d) { return xScale(d[0]); })
-                .y(function (d) { return yScale(d[1]); });
+            this.createOffice(svg);
+        }
+        plan.prototype.createOffice = function (container) {
             var y1 = 140;
             var y2 = y1 + 80;
             var y3 = y2 + 135;
@@ -59,9 +50,37 @@ var app;
                 [x12, 0],
                 [0, 0]
             ];
-            room.append('path')
+            this.createRoom(container, points, 'bureau')
+                .attr('transform', 'translate(10,10)');
+        };
+        plan.prototype.createRoom = function (container, points, name) {
+            var room = container.append('g')
+                .attr('id', name)
+                .classed('room', true);
+            var xScale = d3.scale.linear()
+                .range([0, 100])
+                .domain([0, 100]);
+            var yScale = d3.scale.linear()
+                .range([0, 100])
+                .domain([0, 100]);
+            var xMax = d3.max(points, function (p) { return p[0]; });
+            var yMax = d3.max(points, function (p) { return p[1]; });
+            var lineGenerator = d3.svg.line()
+                .x(function (d) { return xScale(d[0]); })
+                .y(function (d) { return yScale(d[1]); });
+            var path = room.append('path')
                 .attr('d', lineGenerator(points));
-        }
+            room.append('text')
+                .attr({
+                'transform': "translate(" + xMax / 2 + "," + yMax / 2 + ")"
+            })
+                .style({
+                'text-transform': 'uppercase',
+                'text-anchor': 'middle'
+            })
+                .text(name);
+            return room;
+        };
         return plan;
     }());
     app.plan = plan;
