@@ -1,33 +1,12 @@
-/// <reference path="../typings/browser.d.ts" />
 module app {
-    export class plan {
-        private width = 800;
-        private height = 600;
-        private _room: d3.Selection<any>;
-        private _container: d3.Selection<any>;
-        constructor() {
-            this._container = d3.select('#container')
-                .append('svg')
-                .attr({
-                    'width': this.width,
-                    'height': this.height
-                })
-                .append('g')
-                .classed('plan',true);
-            var svg = this._container
-            svg.append('rect')
-                .attr({
-                    width: this.width,
-                    'height': this.height
-                })
-                .style({
-                    'fill': '#efefef'
-                });
-
-            this.createOffice(svg);
+    export class app {
+        private _plan: plan;
+        constructor(containerId: string) {
+            this._plan = new plan(containerId);
+            this.createOffice();
         }
 
-        private createOffice(container: d3.Selection<any>) {
+        private createOffice() {
             var y1 = 140;
             var y2 = y1 + 80;
             var y3 = y2 + 135;
@@ -60,41 +39,8 @@ module app {
                 [x12, 0],
                 [0, 0]
             ];
-            this.createRoom(container, points, 'bureau')
-                .attr('transform','translate(10,10)');
-        }
-
-        private createRoom(container: d3.Selection<any>, points: Array<[number, number]>, name: string): d3.Selection<any> {
-            var room = container.append('g')
-                .attr('id', name)
-                .classed('room', true);
-            var xScale = d3.scale.linear()
-                .range([0, 100])
-                .domain([0, 100]);
-            var yScale = d3.scale.linear()
-                .range([0, 100])
-                .domain([0, 100]);
-            var xMax = d3.max(points, p => p[0]);
-            var yMax = d3.max(points, p => p[1]);
-
-            var lineGenerator = d3.svg.line()
-                .x(d => xScale(d[0]))
-                .y(d => yScale(d[1]));
-            var path = room.append('path')
-                .attr('d', lineGenerator(points));
-            room.append('text')
-                .attr({
-                    'transform': `translate(${xMax / 2},${yMax / 2})`
-
-                })
-                .style({
-                    'text-transform': 'uppercase',
-                    'text-anchor': 'middle'
-                })
-                .text(name);
-            return room;
+            this._plan.createRoom(points, 'bureau', 'rgba(205,50,155,0.5)')
+                .attr('transform', 'translate(10,10)');
         }
     }
 }
-
-new app.plan();
