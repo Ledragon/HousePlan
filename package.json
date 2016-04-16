@@ -4,7 +4,9 @@
   "description": "Plan of my house",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve":"browser-sync start --server --files \"src/**/*.js\"",
+    "ts-w":"tsc -w"
   },
   "keywords": [
     "d3",
@@ -12,7 +14,7 @@
     "plan",
     "house"
   ],
-  "author": "le_drago",
+  "author": "le_dragon",
   "license": "MIT",
   "devDependencies": {
     "browser-sync": "^2.12.3",
