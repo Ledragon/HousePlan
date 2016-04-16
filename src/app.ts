@@ -12,7 +12,8 @@ module app {
             var wall2 = this._plan.addWall(11.5, 133);
             var office = this._plan.createRoom(points, 'bureau', 'rgba(205,50,155,0.5)');
             var bathroom = this._plan.createRoom(bathroomPoints, 'WC', 'rgba(205,5,205,0.5)');
-            var bathroomWall = this._plan.addWall(17.5, 13.5);
+            var bathroomWall = this._plan.addWall(17.5, 119.5);
+            var officeBathroomWall = this._plan.addWall(11,119.5);
             var officeDoor = this._plan.addDoor(office, 0, 140, 80);
 
             var xScale = this._plan.xScale();
@@ -29,10 +30,12 @@ module app {
 
             var totalHeight = officeHeight;
 
-            var bathroomXTranslate = hallWidth - xScale(d3.max(bathroomPoints, p => p[0]))+xScale(17.5);
-            var bathroomYTranslate = yScale(140 ) - yScale(d3.max(bathroomPoints, p => p[1]));
+            var bathroomWidth = xScale(d3.max(bathroomPoints, p => p[0]));
+            var bathroomXTranslate = hallWidth - bathroomWidth + xScale(17.5);
+            var bathroomYTranslate = yScale(140-2.5-11) - yScale(d3.max(bathroomPoints, p => p[1]));
             bathroom.attr('transform', `translate(${bathroomXTranslate},${bathroomYTranslate})`);
-            bathroomWall.attr('transform', `translate(${bathroomXTranslate-xScale(17.5)},${bathroomYTranslate - yScale(13.5)})`);
+            bathroomWall.attr('transform', `translate(${bathroomXTranslate - xScale(17.5)},${xScale(140) - yScale(119.5)})`);
+            officeBathroomWall.attr('transform', `translate(${bathroomXTranslate+bathroomWidth},${xScale(140) - yScale(119.5)})`);
 
 
             var wall1XTranslate = 0;
@@ -89,7 +92,8 @@ module app {
                 [0, 0],
                 [0, -105],
                 [84, -105],
-                [84, 2]
+                [84, 2],
+                [0,0]
             ]
             return points;
         }
