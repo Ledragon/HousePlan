@@ -11,16 +11,13 @@ module app {
 
         constructor(containerId: string) {
             this._rooms = [];
-            this._container = d3.select('#' + containerId)
+            var svg = d3.select('#' + containerId)
                 .append('svg')
                 .attr({
                     'width': this._width,
                     'height': this._height
-                })
-                .append('g')
-                .classed('plan', true);
-            this._container
-                .append('rect')
+                });
+            svg.append('rect')
                 .attr({
                     width: this._width,
                     'height': this._height
@@ -28,6 +25,8 @@ module app {
                 .style({
                     'fill': '#efefef'
                 });
+            this._container = svg.append('g')
+                .classed('plan', true);
 
             this._xScale = d3.scale.linear()
                 .range([0, 100])
@@ -41,7 +40,9 @@ module app {
             var room = this._container.append('g')
                 .attr('id', name)
                 .classed('room', true);
+            var xMin = d3.min(points, p => p[0]);
             var xMax = d3.max(points, p => p[0]);
+            var yMin = d3.min(points, p => p[1]);
             var yMax = d3.max(points, p => p[1]);
 
             var lineGenerator = d3.svg.line()
@@ -54,7 +55,7 @@ module app {
                 });
             room.append('text')
                 .attr({
-                    'transform': `translate(${xMax / 2},${yMax / 2})`
+                    'transform': `translate(${this._xScale((xMax) / 2)},${this._yScale((yMax) / 2)})`
                 })
                 .style({
                     'text-transform': 'uppercase',
@@ -89,6 +90,9 @@ module app {
 
         public yScale() {
             return this._yScale;
+        }
+        public plan() {
+            return this._container;
         }
     }
 }

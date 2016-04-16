@@ -29,7 +29,7 @@ module app {
             var wall1XTranslate = 0;
             var wall1YTranslate = totalHeight - wall1Height;
             wall1.attr('transform', `translate(${wall1XTranslate},${wall1YTranslate})`);
-            
+
 
             var hallXTranslate = wall1Width;
             var hallYTranslate = totalHeight - hallHeight;
@@ -42,17 +42,26 @@ module app {
             var officeXTranslate = wall2XTranslate + wall2Width;
             var officeYTranslate = totalHeight - officeHeight;
             office.attr('transform', `translate(${officeXTranslate},${officeYTranslate})`);
-
+            this._plan.plan().attr('transform', `translate(${100},${200})`)
         }
-        
+
         private createHall(): Array<[number, number]> {
             var points: Array<[number, number]> = [
                 [0, 0],
                 // [16, 0],
                 // [16, 108],
                 [0, 108],
-                [87+16, 108],
-                [87+16, 108 - 133]
+                [87, 108],
+                [87, 108 - 133],
+                [87, 108 - 133 - 80],
+                [87 - 84.5, 108 - 133 - 80],
+                [87 - 84.5 - 16.5, 108 - 133 - 80],
+                [87 - 84.5 - 16.5, 108 - 133 - 80 - 119.5],
+                [87 - 84.5 - 16.5 - 15.5, 108 - 133 - 80 - 119.5],
+                [87 - 84.5 - 16.5 - 15.5, 108 - 133 - 80 - 119.5 - 28],
+                [87 - 84.5 - 16.5 - 15.5 - 1.5, 108 - 133 - 80 - 119.5 - 28],
+                [87 - 84.5 - 16.5 - 15.5 - 1.5, 108 - 133 - 80 - 119.5 - 28 - 14],
+                [87 - 84.5 - 16.5 - 15.5 - 1.5, 108 - 133 - 80 - 119.5 - 28 - 14 - 78],
             ];
             return points;
         }
