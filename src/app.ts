@@ -3,6 +3,7 @@ export class app {
     private _plan: plan;
     constructor(containerId: string) {
         this._plan = new plan(containerId);
+        var scale = this._plan.scale();
         var hallPoints = this.createHall();
         var points = this.createOffice();
         var bathroomPoints = this.createBathroom();
@@ -11,12 +12,19 @@ export class app {
         var hall = this._plan.createRoom(hallPoints, 'hall', 'rgba(205, 155, 50,0.5)');
         var wall2 = this._plan.addWall(11.5, 133);
         var office = this._plan.createRoom(points, 'bureau', 'rgba(205,50,155,0.5)');
-        var bathroom = this._plan.createRoom(bathroomPoints, 'WC', 'rgba(205,5,205,0.5)');
+        var officeWidth = office.width();
+        var officeHeight = office.height();
+        office.addDoor(0, 140, 80, Math.PI / 2, Math.PI);
+        office.addFurniture('bureau', 'rgba(205,205,205,1)', 160, 60, 140, 16);
+        office.addFurniture('bibli', 'rgba(205,205,205,1)', 80, 53, 2, 3);
+        office.addFurniture('petit-meuble', 'rgba(205,205,155,1)', 40, 51, 97.5, 22.5);
+        office.addFurniture('table', 'white', 100, 60, officeWidth-100, officeHeight-60);
+
+        var bathroom = this._plan.createRoom(bathroomPoints, 'WC', 'rgba(50,155,205,0.5)');
+        bathroom.addDoor(84, 0, 78, Math.PI, 3 * Math.PI / 2);
         var bathroomWall = this._plan.addWall(17.5, 119.5);
         var officeBathroomWall = this._plan.addWall(11, 119.5);
-        office.addDoor(0, 140, 80);
 
-        var scale = this._plan.scale();
 
         var wall1Width = scale(16);
         var wall1Height = scale(108);
@@ -24,8 +32,6 @@ export class app {
         var hallHeight = scale(d3.max(hallPoints, p => p[1]));
         var wall2Width = scale(11.5);
         var wall2Height = scale(133);
-        var officeWidth = scale(d3.max(points, p => p[0]));
-        var officeHeight = scale(d3.max(points, p => p[1]));
 
         var totalHeight = officeHeight;
 
@@ -91,7 +97,7 @@ export class app {
             [0, 0],
             [0, -105],
             [84, -105],
-            [84, 2],
+            [84, 0],
             [0, 0]
         ]
         return points;

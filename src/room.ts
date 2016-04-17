@@ -49,20 +49,37 @@ export class room {
         this._group.attr(name, value);
     }
 
-    addDoor(cx: number, cy: number, size: number) {
+    addDoor(cx: number, cy: number, size: number, startAngle: number, endAngle: number) {
         var door = this._group.append('g')
             .classed('door', true)
             .attr('transform', `translate(${this._scale(cx)},${this._scale(cy)})`);
         var arc = d3.svg.arc()
-            .outerRadius(size);
+            .innerRadius(0)
+            .outerRadius(size)
+            .startAngle(startAngle)
+            .endAngle(endAngle);
         door.append('path')
-            .attr('d', arc({
-                startAngle: Math.PI / 2,
-                endAngle: Math.PI,
-                innerRadius: 0,
-                outerRadius: size,
-                padAngle: 0
-            }))
+            .attr('d', arc);
         return door;
+    }
+
+    addFurniture(name: string, color:string, width: number, height: number, x: number, y: number) {
+        this._group.append('g')
+            .classed(name, true)
+            .attr('transform', `translate(${this._scale(x)},${this._scale(y)})`)
+            .append('rect')
+            .attr({
+                'x': 0,
+                'y': 0,
+                'width': this._scale(width),
+                'height': this._scale(height),
+                'fill':color
+            });
+    }
+    width(): number{
+        return this._scale(d3.max(this._points, p => p[0]));
+    }
+    height(): number{
+        return this._scale(d3.max(this._points, p => p[1]));
     }
 }
