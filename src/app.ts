@@ -1,4 +1,6 @@
 import { plan } from './plan';
+import { Ifurniture } from './Ifurniture';
+
 export class app {
     private _plan: plan;
     constructor(containerId: string) {
@@ -15,10 +17,21 @@ export class app {
         var officeWidth = office.width();
         var officeHeight = office.height();
         office.addDoor(0, 140, 80, Math.PI / 2, Math.PI);
-        office.addFurniture('bureau', 'rgba(205,205,205,1)', 160, 60, 140, 16);
-        office.addFurniture('bibli', 'rgba(205,205,205,1)', 80, 53, 2, 3);
-        office.addFurniture('petit-meuble', 'rgba(205,205,155,1)', 40, 51, 97.5, 22.5);
-        office.addFurniture('table', 'white', 100, 60, officeWidth-100, officeHeight-60);
+        var officeFurnitures: Array<Ifurniture> = [
+            {
+                name: 'bureau', color: 'rgba(205,205,205,1)', width: 160, height:60, x:140, y:16
+            },
+            {
+                name:'bibli', color:'rgba(205,205,205,1)', width:80,height: 53, x:2, y:3
+            },
+            {
+                name:'petit-meuble', color:'rgba(205,205,155,1)',width: 40,height: 51,x: 97.5,y:22.5
+            },
+            {
+                name:'table', color:'white', width:100,height: 60,x: officeWidth-100, y:officeHeight-60
+            }
+        ]
+        office.furnitures(officeFurnitures);
 
         var bathroom = this._plan.createRoom(bathroomPoints, 'WC', 'rgba(50,155,205,0.5)');
         bathroom.addDoor(84, 0, 78, Math.PI, 3 * Math.PI / 2);

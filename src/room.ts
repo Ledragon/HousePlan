@@ -1,4 +1,5 @@
 import d3 from 'd3';
+import { Ifurniture } from './Ifurniture';
 export class room {
     private _name: string;
     private _points: Array<[number, number]>;
@@ -63,7 +64,7 @@ export class room {
         return door;
     }
 
-    addFurniture(name: string, color:string, width: number, height: number, x: number, y: number) {
+    addFurniture(name: string, color: string, width: number, height: number, x: number, y: number) {
         this._group.append('g')
             .classed(name, true)
             .attr('transform', `translate(${this._scale(x)},${this._scale(y)})`)
@@ -73,13 +74,32 @@ export class room {
                 'y': 0,
                 'width': this._scale(width),
                 'height': this._scale(height),
-                'fill':color
+                'fill': color
             });
     }
-    width(): number{
+
+    furnitures(values: Array<Ifurniture>) {
+        this._group
+            .selectAll('.furniture')
+            .data(values)
+            .enter()
+            .append('g')
+            .classed(name, true)
+            .classed('furniture', true)
+            .attr('transform', d=>`translate(${this._scale(d.x)},${this._scale(d.y)})`)
+            .append('rect')
+            .attr({
+                'x': 0,
+                'y': 0,
+                'width': d=>this._scale(d.width),
+                'height':d=> this._scale(d.height),
+                'fill': d=>d.color
+            });
+    }
+    width(): number {
         return this._scale(d3.max(this._points, p => p[0]));
     }
-    height(): number{
+    height(): number {
         return this._scale(d3.max(this._points, p => p[1]));
     }
 }
