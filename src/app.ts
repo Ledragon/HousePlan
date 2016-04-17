@@ -14,7 +14,7 @@ export class app {
         var bathroom = this._plan.createRoom(bathroomPoints, 'WC', 'rgba(205,5,205,0.5)');
         var bathroomWall = this._plan.addWall(17.5, 119.5);
         var officeBathroomWall = this._plan.addWall(11, 119.5);
-        var officeDoor = this._plan.addDoor(office, 0, 140, 80);
+        office.addDoor(0, 140, 80);
 
         var scale = this._plan.scale();
 
