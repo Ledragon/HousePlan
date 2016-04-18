@@ -12,6 +12,9 @@ export class app {
         var points = this.createOffice();
         var bathroomPoints = this.createBathroom();
         var livingPoints = this.createLivingRoom();
+        var kitchenPoints = this.createKitchen();
+        var kitchen = this._plan.createRoom(kitchenPoints, 'Cuisine', 'rgba(50,50,155,0.5)');
+
         var livingRoom = this._plan.createRoom(livingPoints, 'Living', 'rgba(50,155,50,0.5)');
 
         // var wall1 = this._plan.addWall(16, 108);
@@ -51,10 +54,10 @@ export class app {
         // var wall2Height = scale(133);
 
         var totalHeight = livingRoom.height();
+        // var totalWith = livingRoom.width() + hall.width() + office.width();
+        var livingHallWalWidth = 12;
 
-        var livingHallWidth = 12;
-
-        var hallXTranslate = livingRoom.width() + scale(12);//wall1XTranslate + wall1Width;
+        var hallXTranslate = livingRoom.width() + scale(livingHallWalWidth);//wall1XTranslate + wall1Width;
         // var hallYTranslate = totalHeight - hallHeight;
         var hallYTranslate = scale(totalHeight - 108);
         hall.attr('transform', `translate(${hallXTranslate},${hallYTranslate})`);
@@ -79,7 +82,7 @@ export class app {
         var officeXTranslate = hallXTranslate + hall.width() + scale(officeHallWidth);//wall2XTranslate + wall2Width;
         var officeYTranslate = totalHeight - officeHeight;
         office.attr('transform', `translate(${officeXTranslate},${officeYTranslate})`);
-
+        kitchen.attr('transform', `translate(${officeXTranslate + office.width() - kitchen.width()},${0})`);
     }
 
     private createHall(): Array<[number, number]> {
@@ -182,6 +185,21 @@ export class app {
             [-0.5 + 28.5 - 29.5 + 338 - 22 - 17.5, 276 + 65.5 + 40.5 + 112 + 131 + 126 - 131 - 78.5 - 152.5 - 316.5 - 77.5],
             [120, 0]
             // [-0.5 + 28.5 - 29.5 + 338-22-17.5-157, 276 + 65.5 + 40.5 + 112 + 131 + 126 - 131 - 78.5 - 152.5-316.5-77.5],
+        ];
+        return points;
+    }
+
+    private createKitchen(): Array<[number, number]> {
+        var points: [number, number][] = [
+            [0, 0],
+            [0, 365],
+            [440, 365],
+            [440, 365 - 288],
+            [440 - 23, 365 - 288],
+            [440 - 23, 365 - 288 - 76],
+            [440 - 23 - 88, 365 - 288 - 76],
+            [440 - 23 - 88, 365 - 288 - 76 + 80.5],
+            [440 - 23 - 88 - 186, 365 - 288 - 76 + 80.5]
         ];
         return points;
     }
