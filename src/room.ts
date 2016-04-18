@@ -86,19 +86,21 @@ export class room {
             .append('g')
             .classed(name, true)
             .classed('furniture', true)
-            .attr('transform', d=>`translate(${this._scale(d.x)},${this._scale(d.y)})`)
+            .attr('transform', d => `translate(${this._scale(d.x)},${this._scale(d.y)})`)
             .append('rect')
             .attr({
                 'x': 0,
                 'y': 0,
-                'width': d=>this._scale(d.width),
-                'height':d=> this._scale(d.height),
-                'fill': d=>d.color
+                'width': d => this._scale(d.width),
+                'height': d => this._scale(d.height),
+                'fill': d => d.color
             });
     }
+    
     width(): number {
-        return this._scale(d3.max(this._points, p => p[0]));
+        return this._scale(d3.max(this._points, p => p[0]) - d3.min(this._points, p => p[0]));
     }
+    
     height(): number {
         return this._scale(d3.max(this._points, p => p[1]));
     }

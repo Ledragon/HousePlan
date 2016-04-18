@@ -5,4 +5,6 @@ export interface Iroom{
     color: string;
     points: string;
     furnitures: Array<Ifurniture>;
+    x: number;
+    y: number;
 }

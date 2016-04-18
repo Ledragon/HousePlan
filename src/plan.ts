@@ -3,8 +3,8 @@ import { room } from './room';
 
 export class plan {
 
-    private _width = 800;
-    private _height = 600;
+    private _width = 1024;
+    private _height = 768;
     private _container: d3.Selection<any>;
     private _rooms: Array<room>;
     private _scale: d3.scale.Linear<number, number>;
