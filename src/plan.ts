@@ -38,12 +38,6 @@ export class plan {
             .domain([0, 100]);
     }
 
-    // public createRoom(points: Array<[number, number]>, name: string, color: string): room {
-    //     var r = new room(this._container, this._scale, name, points, color);
-    //     this._rooms.push(r);
-    //     return r;
-    // }
-
     public addWall(width: number, height: number): d3.Selection<any> {
         var wall = this._container.append('g')
             .classed('wall', true)
@@ -57,18 +51,7 @@ export class plan {
         return wall;
     }
 
-    // public scale() {
-    //     return this._scale;
-    // }
-
-    // public plan() {
-    //     return this._container;
-    // }
-
     public render(rooms: Array<Iroom>) {
-        var lineGenerator = d3.svg.line()
-            .x(d => this._scale(d[0]))
-            .y(d => this._scale(d[1]));
 
         var group = this._container.select('g.rooms');
 
@@ -83,12 +66,25 @@ export class plan {
                     return `translate(${this._scale(d.x)},${this._scale(d.y)})`
                 }
             });
+        this.renderShape(roomGroups);
+        this.renderNames(roomGroups);
+        this.renderFurnitures(roomGroups);
+
+    }
+
+    private renderShape(roomGroups: d3.Selection<Iroom>) {
+        var lineGenerator = d3.svg.line()
+            .x(d => this._scale(d[0]))
+            .y(d => this._scale(d[1]));
 
         roomGroups.append('path')
             .attr('d', d => lineGenerator(d.points))
             .attr({
                 fill: d => d.color
             });
+    }
+
+    private renderNames(roomGroups: d3.Selection<Iroom>) {
 
         roomGroups
             .append('text')
@@ -106,15 +102,18 @@ export class plan {
                 'text-anchor': 'middle'
             })
             .text(d => d.name);
+    }
+    
+    private renderFurnitures(roomGroups: d3.Selection<Iroom>) {
         roomGroups.append('g')
             .classed('furnitures', true)
             .selectAll('.furniture')
             .data<Ifurniture>(d => d.furnitures)
             .enter()
             .append('g')
-            // .classed(name, true)
+            .attr('class', d => d.name)
             .classed('furniture', true)
-            .attr('transform', (d:Ifurniture) => `translate(${this._scale(d.x)},${this._scale(d.y)})`)
+            .attr('transform', (d: Ifurniture) => `translate(${this._scale(d.x)},${this._scale(d.y)})`)
             .append('rect')
             .attr({
                 'x': 0,
