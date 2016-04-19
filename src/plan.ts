@@ -1,6 +1,7 @@
 import d3 from 'd3';
 import { Iroom } from './Iroom';
 import { room } from './room';
+import { Ifurniture } from './Ifurniture';
 
 export class plan {
 
@@ -27,7 +28,8 @@ export class plan {
                 'fill': '#efefef'
             });
         this._container = svg.append('g')
-            .classed('plan', true);
+            .classed('plan', true)
+            .attr('transform', `translate(${10},${10})`);
         this._container.append('g')
             .classed('rooms', true);
 
@@ -36,11 +38,11 @@ export class plan {
             .domain([0, 100]);
     }
 
-    public createRoom(points: Array<[number, number]>, name: string, color: string): room {
-        var r = new room(this._container, this._scale, name, points, color);
-        this._rooms.push(r);
-        return r;
-    }
+    // public createRoom(points: Array<[number, number]>, name: string, color: string): room {
+    //     var r = new room(this._container, this._scale, name, points, color);
+    //     this._rooms.push(r);
+    //     return r;
+    // }
 
     public addWall(width: number, height: number): d3.Selection<any> {
         var wall = this._container.append('g')
@@ -55,13 +57,13 @@ export class plan {
         return wall;
     }
 
-    public scale() {
-        return this._scale;
-    }
+    // public scale() {
+    //     return this._scale;
+    // }
 
-    public plan() {
-        return this._container;
-    }
+    // public plan() {
+    //     return this._container;
+    // }
 
     public render(rooms: Array<Iroom>) {
         var lineGenerator = d3.svg.line()
@@ -107,8 +109,19 @@ export class plan {
         roomGroups.append('g')
             .classed('furnitures', true)
             .selectAll('.furniture')
-            .data(d => d.points)
+            .data<Ifurniture>(d => d.furnitures)
+            .enter()
+            .append('g')
+            // .classed(name, true)
+            .classed('furniture', true)
+            .attr('transform', (d:Ifurniture) => `translate(${this._scale(d.x)},${this._scale(d.y)})`)
             .append('rect')
-            .classed('furniture', true);
+            .attr({
+                'x': 0,
+                'y': 0,
+                'width': d => this._scale(d.width),
+                'height': d => this._scale(d.height),
+                'fill': d => d.color
+            });
     }
 }

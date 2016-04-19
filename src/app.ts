@@ -6,8 +6,8 @@ export class app {
     private _plan: plan;
     constructor(containerId: string) {
         this._plan = new plan(containerId);
-        var scale = this._plan.scale();
-        this._plan.plan().attr('transform', `translate(${10},${10})`)
+        // var scale = this._plan.scale();
+        // this._plan.plan().attr('transform', `translate(${10},${10})`)
 
 
         // var hallPoints = this.createHall();
@@ -47,7 +47,7 @@ export class app {
                     name: 'petit-meuble', color: 'rgba(205,205,155,1)', width: 40, height: 51, x: 97.5, y: 22.5
                 },
                 {
-                    name: 'table', color: 'white', width: 100, height: 60, x: 230, y: 280
+                    name: 'table', color: 'white', width: 100, height: 60, x: 200, y: 294
                 }
             ]
         }
