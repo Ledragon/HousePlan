@@ -61,11 +61,21 @@ export class app {
             'y': 0,
             furnitures: []
         };
+
+        var bathroom: Iroom = {
+            name: 'WC',
+            color: 'rgba(50, 155, 155,0.5)',
+            points: this.createBathroom(),
+            'x': 468,
+            'y': 530,
+            furnitures: []
+        }
         var rooms = [
             hallModel,
             kitchenModel,
             officeModel,
-            livingRoomModel
+            livingRoomModel,
+            bathroom
         ];
         this._plan.render(rooms);
         // var hall = this._plan.createRoom(hallPoints, 'hall', 'rgba(205, 155, 50,0.5)');
@@ -266,7 +276,7 @@ export class app {
             [440 - 23 - 88 - 186, 335 - 288 - 76 + 80.5 - 30],
             [440 - 23 - 88 - 186 - 33.5, 335 - 288 - 76 + 80.5 - 30],
             [440 - 23 - 88 - 186 - 33.5, 335 - 288 - 76 + 80.5 - 30 - 21.9],
-            [0,0]
+            [0, 0]
         ];
         return points;
     }
