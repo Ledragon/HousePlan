@@ -7,4 +7,5 @@ export interface Iroom{
     furnitures: Array<Ifurniture>;
     x: number;
     y: number;
+    doors?: Array<{ cx: number, cy: number, size: number, startAngle: number, endAngle: number }>;
 }

@@ -103,7 +103,7 @@ export class plan {
             })
             .text(d => d.name);
     }
-    
+
     private renderFurnitures(roomGroups: d3.Selection<Iroom>) {
         roomGroups.append('g')
             .classed('furnitures', true)
@@ -121,6 +121,26 @@ export class plan {
                 'width': d => this._scale(d.width),
                 'height': d => this._scale(d.height),
                 'fill': d => d.color
+            });
+    }
+
+    private renderDoors(roomGroups: d3.Selection<Iroom>) {
+        // var arc = d3.svg.arc();
+        roomGroups.append('g')
+            .classed('doors', true)
+            .data(d => d.doors)
+            .enter()
+            .append('g')
+            .classed('door', true)
+            .attr('transform', d => `translate(${this._scale(d.cx)},${this._scale(d.cy)})`)
+            .append('path')
+            .attr('d', d => {
+                var arc = d3.svg.arc()
+                    .innerRadius(0)
+                    .outerRadius(d.size)
+                    .startAngle(d.startAngle)
+                    .endAngle(d.endAngle);
+                return <any>arc;
             });
     }
 }
