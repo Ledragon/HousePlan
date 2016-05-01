@@ -78,7 +78,7 @@ export class plan {
         this.renderShape(roomGroups);
         this.renderNames(roomGroups);
         this.renderFurnitures(roomGroups);
-        this.renderSizes(roomGroups);
+        // this.renderSizes(roomGroups);
         // this.renderDoors(roomGroups);
     }
 
@@ -133,7 +133,6 @@ export class plan {
 
     private renderFurnitures(roomGroups: d3.Selection<Iroom>) {
         roomGroups.select('g.furnitures')
-            // .classed('furnitures', true)
             .selectAll('.furniture')
             .data<Ifurniture>(d => d.furnitures)
             .enter()

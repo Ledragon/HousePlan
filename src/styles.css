@@ -3,6 +3,7 @@ html, body{
     height: 100%;
     padding: 0;
     margin: 0;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 .flex-container{
     display: flex;
@@ -37,5 +38,13 @@ line, path, .wall{
 .door path{
     fill:rgba(50,155,205, 1);
 }
-
+.form-control{
+    width:100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height:34px;
+}
+.form-group{
+    padding-bottom: 15px;
+}
 /*========================================*/
