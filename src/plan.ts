@@ -78,14 +78,31 @@ export class plan {
             .y(d => this._scale(d[1]));
 
         roomGroups.append('path')
-            .attr('d', d => lineGenerator(d.points))
+            .attr('d', d => {
+                var points = d.points;
+                if (d.walls) {
+                    points = [[0, 0]];
+                    var point: [number, number] = [0, 0];
+                    d.walls.forEach((w, i) => { 
+                        var angle = w.angle * Math.PI / 180;
+                        var width = point[0] + w.length * Math.sin(angle);
+                        var height = point[1] + w.length * Math.cos(angle);
+                        var newPoint: [number, number] = [width, height];
+                        console.log(w);
+                        console.log(newPoint);
+                        points.push(newPoint);
+                        point = newPoint;
+                    });
+                }
+                d.points = points;
+                return lineGenerator(points);
+            })
             .attr({
                 fill: d => d.color
             });
     }
 
     private renderNames(roomGroups: d3.Selection<Iroom>) {
-
         roomGroups
             .append('text')
             .attr({
