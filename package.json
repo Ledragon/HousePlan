@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "browser-sync start --server --startPath src --files \"**/*.js\" index.html styles.css",
+    "serve": "browser-sync start --server --startPath src --files \"**/*.js\" \"src/index.html\" \"src/styles.css\"",
     "tsc-w": "tsc -w"
   },
   "keywords": [

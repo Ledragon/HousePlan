@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -8,10 +9,16 @@
     <script src="jspm_packages/system.js"></script>
     <script src="config.js"></script>
 </head>
+
 <body>
-    <div id="container" style="width:50%;height:768px;"></div>
+    <div id="container" style="width:50%;height:768px; float:left;"></div>
+    <div style="width:50%; float:left;">
+        <input value="test" id="roomName" />
+        <button id="michel">Save</button>
+    </div>
     <script>
         System.import('bootstrapper');
     </script>
 </body>
+
 </html>

@@ -15,7 +15,7 @@ export class app {
                 console.log(data.floors[1]);
                 this._plan.render(data.floors[1].rooms);
             }
-        })
+        });
 
     }
 
