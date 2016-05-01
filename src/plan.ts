@@ -57,15 +57,21 @@ export class plan {
 
         var roomGroups = group
             .selectAll('.room')
-            .data(rooms)
-            .enter()
+            .data(rooms);
+        roomGroups.exit()
+            .remove();
+        var roomGroup = roomGroups.enter()
             .append('g')
-            .classed('room', true)
-            .attr({
-                'transform': d => {
-                    return `translate(${this._scale(d.x)},${this._scale(d.y)})`
-                }
-            });
+            .classed('room', true);
+        roomGroup.append('path');
+        roomGroup.append('text');
+        roomGroup.append('g')
+            .classed('furnitures', true)
+        roomGroups.attr({
+            'transform': d => {
+                return `translate(${this._scale(d.x)},${this._scale(d.y)})`
+            }
+        });
         this.renderShape(roomGroups);
         this.renderNames(roomGroups);
         this.renderFurnitures(roomGroups);
@@ -77,7 +83,9 @@ export class plan {
         var lineGenerator = d3.svg.line()
             .x(d => this._scale(d[0]))
             .y(d => this._scale(d[1]));
-        roomGroups.append('path')
+        roomGroups
+            .select('path')
+            // .append('path')
             .attr('d', d => {
                 var points = d.points;
                 if (d.walls) {
@@ -103,7 +111,7 @@ export class plan {
 
     private renderNames(roomGroups: d3.Selection<Iroom>) {
         roomGroups
-            .append('text')
+            .select('text')
             .attr({
                 'transform': d => {
                     var xMin = d3.min(d.points, p => p[0]);
@@ -121,8 +129,8 @@ export class plan {
     }
 
     private renderFurnitures(roomGroups: d3.Selection<Iroom>) {
-        roomGroups.append('g')
-            .classed('furnitures', true)
+        roomGroups.select('g.furnitures')
+            // .classed('furnitures', true)
             .selectAll('.furniture')
             .data<Ifurniture>(d => d.furnitures)
             .enter()

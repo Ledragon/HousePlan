@@ -1,3 +1,32 @@
+/*========================================*/
+html, body{
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+.flex-container{
+    display: flex;
+    flex-direction: row;
+    flex-basis:95%;
+    height: 95%;
+    flex:1;
+}
+.flex-container>div{
+    flex: 1;
+}
+/*========================================*/
+#menu{
+    flex-direction: column;
+    padding: 5px 0;
+}
+.menu-item{
+    color: white;
+    text-transform: uppercase;
+    font-size: 1.1em;
+    margin: 5px;
+    padding: 2px;
+    border: 1px solid gray;
+}
 line, path, .wall{
     stroke: black;
     stroke-width: 1px;
@@ -8,3 +37,5 @@ line, path, .wall{
 .door path{
     fill:rgba(50,155,205, 1);
 }
+
+/*========================================*/
