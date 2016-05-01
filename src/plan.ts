@@ -16,12 +16,12 @@ export class plan {
         var svg = d3.select('#' + containerId)
             .append('svg')
             .attr({
-                'width': this._width,
+                'width': '100%',
                 'height': this._height
             });
         svg.append('rect')
             .attr({
-                width: this._width,
+                width: '100%',
                 'height': this._height
             })
             .style({
@@ -69,6 +69,7 @@ export class plan {
         this.renderShape(roomGroups);
         this.renderNames(roomGroups);
         this.renderFurnitures(roomGroups);
+        // this.renderDoors(roomGroups);
 
     }
 
@@ -76,30 +77,28 @@ export class plan {
         var lineGenerator = d3.svg.line()
             .x(d => this._scale(d[0]))
             .y(d => this._scale(d[1]));
-
         roomGroups.append('path')
             .attr('d', d => {
                 var points = d.points;
                 if (d.walls) {
                     points = [[0, 0]];
                     var point: [number, number] = [0, 0];
-                    d.walls.forEach((w, i) => { 
+                    d.walls.forEach((w, i) => {
                         var angle = w.angle * Math.PI / 180;
                         var width = point[0] + w.length * Math.sin(angle);
                         var height = point[1] + w.length * Math.cos(angle);
-                        var newPoint: [number, number] = [width, height];
-                        console.log(w);
-                        console.log(newPoint);
-                        points.push(newPoint);
-                        point = newPoint;
+                        // linePoints.push([point[0], point[1], width, height])
+                        point = [width, height];
+                        points.push(point);
                     });
+                    d.points = points;
                 }
-                d.points = points;
                 return lineGenerator(points);
             })
             .attr({
                 fill: d => d.color
             });
+
     }
 
     private renderNames(roomGroups: d3.Selection<Iroom>) {
@@ -143,21 +142,17 @@ export class plan {
 
     private renderDoors(roomGroups: d3.Selection<Iroom>) {
         // var arc = d3.svg.arc();
+        var arc = d3.svg.arc()
+            .innerRadius(0)
         roomGroups.append('g')
             .classed('doors', true)
-            .data(d => d.doors)
+            .selectAll('.door')
+            .data<any>(d => d.doors)
             .enter()
             .append('g')
             .classed('door', true)
             .attr('transform', d => `translate(${this._scale(d.cx)},${this._scale(d.cy)})`)
             .append('path')
-            .attr('d', d => {
-                var arc = d3.svg.arc()
-                    .innerRadius(0)
-                    .outerRadius(d.size)
-                    .startAngle(d.startAngle)
-                    .endAngle(d.endAngle);
-                return <any>arc;
-            });
+            .attr('d', d => arc({ innerRadius: 0, outerRadius: d.size, startAngle: d.startAngle, endAngle: d.endAngle, padAngle: 0 }));
     }
 }
