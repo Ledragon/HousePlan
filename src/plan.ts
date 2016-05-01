@@ -66,7 +66,10 @@ export class plan {
         roomGroup.append('path');
         roomGroup.append('text');
         roomGroup.append('g')
-            .classed('furnitures', true)
+            .classed('furnitures', true);
+
+        roomGroup.append('g')
+            .classed('sizes', true);
         roomGroups.attr({
             'transform': d => {
                 return `translate(${this._scale(d.x)},${this._scale(d.y)})`
@@ -75,8 +78,8 @@ export class plan {
         this.renderShape(roomGroups);
         this.renderNames(roomGroups);
         this.renderFurnitures(roomGroups);
+        this.renderSizes(roomGroups);
         // this.renderDoors(roomGroups);
-
     }
 
     private renderShape(roomGroups: d3.Selection<Iroom>) {
@@ -162,5 +165,15 @@ export class plan {
             .attr('transform', d => `translate(${this._scale(d.cx)},${this._scale(d.cy)})`)
             .append('path')
             .attr('d', d => arc({ innerRadius: 0, outerRadius: d.size, startAngle: d.startAngle, endAngle: d.endAngle, padAngle: 0 }));
+    }
+
+    private renderSizes(roomGroups: d3.Selection<Iroom>) {
+        roomGroups.select('g.sizes')
+            .selectAll('.size')
+            .data(d => d.walls ? d.walls : [])
+            .enter()
+            .append('text')
+            .classed('size', true)
+            .text((d: any) => d.length);
     }
 }
