@@ -11,6 +11,8 @@ export class plan {
     private _rooms: Array<room>;
     private _scale: d3.scale.Linear<number, number>;
 
+    private _dispatch: any;
+
     constructor(containerId: string) {
         this._rooms = [];
         var svg = d3.select('#' + containerId)
@@ -36,6 +38,8 @@ export class plan {
         this._scale = d3.scale.linear()
             .range([0, 100])
             .domain([0, 100]);
+
+        this._dispatch = d3.dispatch('roomclicked');
     }
 
     public addWall(width: number, height: number): d3.Selection<any> {
@@ -62,7 +66,10 @@ export class plan {
             .remove();
         var roomGroup = roomGroups.enter()
             .append('g')
-            .classed('room', true);
+            .classed('room', true)
+            .on('click', (d) => {
+                this._dispatch.roomclicked(d);
+            });
         roomGroup.append('path');
         roomGroup.append('text');
         roomGroup.append('g')
@@ -174,5 +181,9 @@ export class plan {
             .append('text')
             .classed('size', true)
             .text((d: any) => d.length);
+    }
+
+    public dispatch(): d3.Dispatch {
+        return this._dispatch;
     }
 }

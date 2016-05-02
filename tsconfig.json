@@ -3,10 +3,12 @@
         "noImplicitAny": true,
         "target": "es5",
         "module": "system",
-        "sourceMap": true
+        "sourceMap": true,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true
     },
     "exclude": [
-        "typings/browser",
         "typings/main",
         "typings/main.d.ts",
         "node_modules"
