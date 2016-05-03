@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "browser-sync start --server --startPath src --files \"**/*.js\" \"src/index.html\" \"src/styles.css\" src/rooms.json",
+    "serve": "browser-sync start --server --startPath src --files \"**/*.js\" \"src/index.html\" \"src/styles.css\" src/data/*.json",
     "tsc-w": "tsc -w",
     "dev":"concurrently \"npm run serve\" \"npm run tsc-w\""
   },

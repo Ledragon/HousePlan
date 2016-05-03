@@ -28,7 +28,7 @@ html, body{
     padding: 2px;
     border: 1px solid gray;
 }
-line, path, .wall{
+line, path, .wall, .furniture{
     stroke: black;
     stroke-width: 1px;
 }

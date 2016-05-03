@@ -37,7 +37,7 @@ export class plan {
         this._container = svg.append('g')
             .classed('plan', true)
             .attr('transform', `translate(${10},${10})`);
-
+        this.addGridlines();
 
         this._container.append('g')
             .classed('rooms', true);
@@ -46,14 +46,14 @@ export class plan {
     }
 
     private addGridlines() {
+        var step = 10;
         var grid = this._container.append('g')
             .classed('grid', true);
-        var hl = grid.append('g')
+        var hlines = d3.range(0, this._height, step);
+        grid.append('g')
             .classed('lines horizontal', true)
-        var lines = d3.range(0, this._height, 100);
-        hl
             .selectAll('line')
-            .data(lines)
+            .data(hlines)
             .enter()
             .append('line')
             .attr({
@@ -61,6 +61,20 @@ export class plan {
                 'y1': d => this._scale(d),
                 'x2': this._scale(this._width),
                 'y2': d => this._scale(d)
+            });
+
+        var vLines = d3.range(0, this._width, step);
+        grid.append('g')
+            .classed('lines vertical', true)
+            .selectAll('line')
+            .data(vLines)
+            .enter()
+            .append('line')
+            .attr({
+                'x1': d => this._scale(d),
+                'y1': 0,
+                'x2': d => this._scale(d),
+                'y2': this._scale(this._height)
             });
     }
 

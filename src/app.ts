@@ -6,8 +6,9 @@ export class app {
     private _plan: plan;
     constructor(containerId: string) {
         this._plan = new plan(containerId);
-        // this._plan.render(floorRooms);
-        d3.json('rooms.json', (error: any, data: Imodel) => {
+        
+        // d3.json('rooms.json', (error: any, data: Imodel) => {
+        d3.json('data/rooms.json', (error: any, data: Imodel) => {
             if (error) {
                 console.error(error);
             }
@@ -33,7 +34,7 @@ export class app {
                 this._plan.render(d.rooms);
             })
             .text(d => d.name);
-        this._plan.render(data.floors[1].rooms);
+        this._plan.render(data.floors[0].rooms);
     }
 
     private showFurnitureList(room: Iroom) {
