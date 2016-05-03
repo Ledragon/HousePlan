@@ -15,6 +15,11 @@ export class plan {
 
     constructor(containerId: string) {
         this._rooms = [];
+
+        this._scale = d3.scale.linear()
+            .range([0, 100])
+            .domain([0, 100]);
+
         var svg = d3.select('#' + containerId)
             .append('svg')
             .attr({
@@ -32,14 +37,31 @@ export class plan {
         this._container = svg.append('g')
             .classed('plan', true)
             .attr('transform', `translate(${10},${10})`);
+
+
         this._container.append('g')
             .classed('rooms', true);
 
-        this._scale = d3.scale.linear()
-            .range([0, 100])
-            .domain([0, 100]);
-
         this._dispatch = d3.dispatch('roomclicked');
+    }
+
+    private addGridlines() {
+        var grid = this._container.append('g')
+            .classed('grid', true);
+        var hl = grid.append('g')
+            .classed('lines horizontal', true)
+        var lines = d3.range(0, this._height, 100);
+        hl
+            .selectAll('line')
+            .data(lines)
+            .enter()
+            .append('line')
+            .attr({
+                'x1': 0,
+                'y1': d => this._scale(d),
+                'x2': this._scale(this._width),
+                'y2': d => this._scale(d)
+            });
     }
 
     public addWall(width: number, height: number): d3.Selection<any> {

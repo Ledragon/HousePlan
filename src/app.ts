@@ -33,7 +33,7 @@ export class app {
                 this._plan.render(d.rooms);
             })
             .text(d => d.name);
-        this._plan.render(data.floors[0].rooms);
+        this._plan.render(data.floors[1].rooms);
     }
 
     private showFurnitureList(room: Iroom) {

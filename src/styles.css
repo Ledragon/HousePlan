@@ -47,4 +47,8 @@ line, path, .wall{
 .form-group{
     padding-bottom: 15px;
 }
+.lines line{
+    stroke: rgba(205,205,205, 0.5);
+    stroke-width: 1px;
+}
 /*========================================*/
