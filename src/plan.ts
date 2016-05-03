@@ -139,10 +139,12 @@ export class plan {
     }
 
     private renderFurnitures(roomGroups: d3.Selection<Iroom>) {
-        roomGroups.select('g.furnitures')
+        var bound = roomGroups.select('g.furnitures')
             .selectAll('.furniture')
-            .data<Ifurniture>(d => d.furnitures)
-            .enter()
+            .data<Ifurniture>(d => d.furnitures);
+        bound.exit()
+            .remove();
+        bound.enter()
             .append('g')
             .attr('class', d => d.name)
             .classed('furniture', true)

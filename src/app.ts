@@ -1,5 +1,4 @@
 import { plan } from './plan';
-import { groundFloor } from './groundFloor';
 import {Iroom} from './Iroom';
 import {Imodel} from './Imodel';
 
@@ -7,17 +6,13 @@ export class app {
     private _plan: plan;
     constructor(containerId: string) {
         this._plan = new plan(containerId);
-        var gf = new groundFloor();
-        var floorRooms = gf.createGroundFloor();
         // this._plan.render(floorRooms);
         d3.json('rooms.json', (error: any, data: Imodel) => {
             if (error) {
                 console.error(error);
             }
             else {
-                data.floors[0].rooms = floorRooms;
                 this.buildMenu(data);
-                // this._plan.render(data.floors[1].rooms);
             }
         });
 
@@ -58,7 +53,8 @@ export class app {
             .attr({
                 'type': 'text',
                 'value': d => d.name
-            });
+            })
+            .classed('form-control', true);
     }
 
 }
