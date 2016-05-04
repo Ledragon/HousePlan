@@ -1,26 +1,22 @@
 import { plan } from './plan';
 import {Iroom} from './Iroom';
 import {Imodel} from './Imodel';
+import { furnitureContextual } from './furnitureContextual';
+import { dataService } from './services/dataService';
 
 export class app {
     private _plan: plan;
     constructor(containerId: string) {
         this._plan = new plan(containerId);
-        
-        // d3.json('rooms.json', (error: any, data: Imodel) => {
-        d3.json('data/rooms.json', (error: any, data: Imodel) => {
-            if (error) {
-                console.error(error);
-            }
-            else {
-                this.buildMenu(data);
-            }
-        });
-
+        var fc = new furnitureContextual('contextual');
         this._plan.dispatch()
             .on('roomclicked', (d: Iroom) => {
-                this.showFurnitureList(d);
+                fc.update(d.furnitures);
             });
+        var service = new dataService();
+        service.read('rooms').then(data => {
+            this.buildMenu(data);
+        })
     }
 
     private buildMenu(data: Imodel) {
@@ -35,27 +31,6 @@ export class app {
             })
             .text(d => d.name);
         this._plan.render(data.floors[0].rooms);
-    }
-
-    private showFurnitureList(room: Iroom) {
-        var dataBound = d3.select('#contextual')
-            .selectAll('.furniture')
-            .data(room.furnitures);
-
-        dataBound.exit()
-            .remove();
-
-        var divs = dataBound.enter()
-            .append('div')
-            .classed('form-group', true);
-        divs.append('label')
-            .text('Name');
-        divs.append('input')
-            .attr({
-                'type': 'text',
-                'value': d => d.name
-            })
-            .classed('form-control', true);
     }
 
 }
