@@ -1,7 +1,7 @@
 import d3 from 'd3';
-import { Iroom } from './Iroom';
+import { Iroom } from './models/Iroom';
 import { room } from './room';
-import { Ifurniture } from './Ifurniture';
+import { Ifurniture } from './models/Ifurniture';
 
 export class plan {
 

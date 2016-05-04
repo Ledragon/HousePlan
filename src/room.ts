@@ -1,5 +1,5 @@
 import d3 from 'd3';
-import { Ifurniture } from './Ifurniture';
+import { Ifurniture } from './models/Ifurniture';
 export class room {
     private _name: string;
     private _points: Array<[number, number]>;

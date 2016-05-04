@@ -1,4 +1,4 @@
-import {Imodel} from '../Imodel';
+import {Imodel} from '../models/Imodel';
 
 export class dataService {
     read(file: string): Promise<Imodel> {

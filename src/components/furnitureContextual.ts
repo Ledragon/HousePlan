@@ -1,4 +1,4 @@
-import { Ifurniture } from './Ifurniture';
+import { Ifurniture } from '../models/Ifurniture';
 export class furnitureContextual {
     private _group: d3.Selection<Ifurniture>;
     private _furnitures: Array<Ifurniture>;

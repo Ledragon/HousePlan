@@ -1,4 +1,4 @@
-import { Ifurniture } from './Ifurniture';
+import { Ifurniture } from './models/Ifurniture';
 export class furnitureManagement {
     static create(): Ifurniture {
         var result: Ifurniture = {

@@ -1,8 +1,5 @@
 import { Iroom } from './Iroom';
-
-export interface Imodel{
-    floors: Array<{
+export interface Ifloor{
         name: string;
         rooms: Array<Iroom>;
-    }>;
 }
