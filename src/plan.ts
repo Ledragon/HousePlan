@@ -42,7 +42,7 @@ export class plan {
         this._container.append('g')
             .classed('rooms', true);
 
-        this._dispatch = d3.dispatch('roomclicked');
+        this._dispatch = d3.dispatch('roomclicked', 'furnitureclicked');
     }
 
     private addGridlines() {
@@ -103,6 +103,7 @@ export class plan {
         var roomGroup = roomGroups.enter()
             .append('g')
             .classed('room', true)
+            .attr('id', d => d.name)
             .on('click', (d) => {
                 this._dispatch.roomclicked(d);
             });
@@ -178,12 +179,20 @@ export class plan {
         var bound = roomGroups.select('g.furnitures')
             .selectAll('.furniture')
             .data<Ifurniture>(d => d.furnitures);
-        bound.exit()
+        this.updateFurnitures(bound);
+    }
+
+    public updateFurnitures(selection: d3.selection.Update<Ifurniture>): void {
+        selection.exit()
             .remove();
-        bound.enter()
+        selection.enter()
             .append('g')
-            .attr('class', d => d.name)
             .classed('furniture', true)
+            .on('click', (d) => {
+                this._dispatch.furnitureclicked(d);
+                d3.event.stopPropagation();
+            });
+        selection.attr('class', d => d.name)
             .attr('transform', (d: Ifurniture) => `translate(${this._scale(d.x)},${this._scale(d.y)})`)
             .append('rect')
             .attr({
