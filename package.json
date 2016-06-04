@@ -30,6 +30,7 @@
       "baseURL": "src"
     },
     "dependencies": {
+      "angular": "github:angular/bower-angular@^1.5.6",
       "d3": "npm:d3@^3.5.16"
     },
     "devDependencies": {}

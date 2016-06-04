@@ -5,8 +5,7 @@ import {Ifurniture} from './models/Ifurniture';
 import { furnitureContextual } from './components/furnitureContextual';
 import { menu } from './components/menu';
 import { dataService } from './services/dataService';
-import { furnitureProperties } from './components/furnitureProperties';
-
+// import { furnitureProperties } from './components/furnitureProperties';
 
 export class app {
     private _selectedRoom: Iroom;
@@ -23,7 +22,7 @@ export class app {
             })
             .on('furnitureclicked', (d: Ifurniture) => {
                 console.log(d);
-                furnitureProperties.render(d);
+                // furnitureProperties.render(d);
             });
 
         fc.dispatch()
