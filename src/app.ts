@@ -11,40 +11,40 @@ export class app {
     private _selectedRoom: Iroom;
     private _plan: plan;
     constructor(containerId: string) {
-        var p = new plan(containerId);
+        // var p = new plan(containerId);
 
-        var fc = new furnitureContextual('contextual');
-        p.dispatch()
-            .on('roomclicked', (d: Iroom) => {
-                this._selectedRoom = d;
-                fc.update(d.furnitures);
-                fc.show();
-            })
-            .on('furnitureclicked', (d: Ifurniture) => {
-                console.log(d);
-                // furnitureProperties.render(d);
-            });
+        // var fc = new furnitureContextual('contextual');
+        // p.dispatch()
+        //     .on('roomclicked', (d: Iroom) => {
+        //         this._selectedRoom = d;
+        //         fc.update(d.furnitures);
+        //         fc.show();
+        //     })
+        //     .on('furnitureclicked', (d: Ifurniture) => {
+        //         console.log(d);
+        //         // furnitureProperties.render(d);
+        //     });
 
-        fc.dispatch()
-            .on('add', (d) => {
-                this.furnitureAdded(d);
-            });
+        // fc.dispatch()
+        //     .on('add', (d) => {
+        //         this.furnitureAdded(d);
+        //     });
 
-        var m = new menu('menu');
-        m.dispatch()
-            .on('itemClick', (d) => {
-                p.render(d.rooms);
-                fc.hide();
-            });
+        // var m = new menu('menu');
+        // m.dispatch()
+        //     .on('itemClick', (d) => {
+        //         p.render(d.rooms);
+        //         fc.hide();
+        //     });
 
-        var service = new dataService();
-        service.read('rooms')
-            .then(data => {
-                m.update(data.floors);
-                p.render(data.floors[0].rooms);
-                fc.hide();
-            });
-        this._plan = p;
+        // var service = new dataService();
+        // service.read('rooms')
+        //     .then(data => {
+        //         m.update(data.floors);
+        //         p.render(data.floors[0].rooms);
+        //         fc.hide();
+        //     });
+        // this._plan = p;
     }
 
     furnitureAdded(d: Ifurniture): void {

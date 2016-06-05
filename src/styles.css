@@ -19,14 +19,21 @@ html, body{
 #menu{
     flex-direction: column;
     padding: 5px 0;
+    flex-basis:200px;
+    flex-grow:0; 
+    border: 1px solid darkgray;
+}
+#container{
+    flex:2;
 }
 .menu-item{
-    color: white;
+    /*color: white;*/
+    color:#441013;
     text-transform: uppercase;
     font-size: 1.1em;
     margin: 5px;
     padding: 2px;
-    border: 1px solid gray;
+    border: 1px solid #441013;
 }
 line, path, .wall, .furniture{
     stroke: black;

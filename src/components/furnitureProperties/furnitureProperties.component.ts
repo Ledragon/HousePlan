@@ -10,14 +10,6 @@ export class furnitureProperties implements angular.IComponentOptions {
 class furniturePropertiesController {
     selected: Ifurniture;
     constructor() {
-        this.selected = {
-            color: 'red',
-            height: 50,
-            width: 50,
-            name:
-            'michel',
-            x: 0,
-            y: 0
-        }
+       
     }
 }
