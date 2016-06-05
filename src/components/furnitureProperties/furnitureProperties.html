@@ -1,3 +1,26 @@
 <div>
-    {{$ctrl.selected.name}}
+    <div class="form-group">
+        <label for="">Name</label>
+        <input type="text" class="form-control" ng-model="$ctrl.selected.name">
+    </div>
+    <div class="form-group">
+        <label for="">Width</label>
+        <input type="number" class="form-control" ng-model="$ctrl.selected.width">
+    </div>
+    <div class="form-group">
+        <label for="">Height</label>
+        <input type="number" class="form-control" ng-model="$ctrl.selected.height">
+    </div>
+    <div class="form-group">
+        <label for="">X</label>
+        <input type="number" class="form-control" ng-model="$ctrl.selected.x">
+    </div>
+    <div class="form-group">
+        <label for="">Y</label>
+        <input type="number" class="form-control" ng-model="$ctrl.selected.y">
+    </div>
+    <div class="form-group">
+        <label for="">Color</label>
+        <input type="color" class="form-control" ng-model="$ctrl.selected.color">
+    </div>
 </div>

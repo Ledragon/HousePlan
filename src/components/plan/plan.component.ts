@@ -2,6 +2,7 @@ import d3 from 'd3';
 import { plan } from './plan';
 import { dataService } from '../../services/dataService';
 import { Iroom } from '../../models/Iroom';
+import { Ifurniture } from '../../models/Ifurniture';
 var p: plan;
 export class planComponent implements angular.IComponentOptions {
     template = ($element: angular.IAugmentedJQuery) => {
@@ -17,18 +18,24 @@ export class planComponent implements angular.IComponentOptions {
     };
     controller = planComponentController;
     bindings = {
-        'selected': '='
+        'selected': '=',
+        'selectedFurniture': '='
     };
 }
 
 class planComponentController {
     selected: Iroom;
+    selectedFurniture: Ifurniture;
     static $inject = ['$scope','dataService'];
     constructor($scope:angular.IScope,private _dataService: dataService) {
 
         p.dispatch()
             .on('roomclicked', (d: Iroom) => {
                 this.selected = d;
+                $scope.$apply();
+            })
+            .on('furnitureclicked', (d: Ifurniture) => {
+                this.selectedFurniture= d;
                 $scope.$apply();
             });
     }

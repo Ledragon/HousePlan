@@ -1,0 +1,9 @@
+<form>
+    <div class="furniture form-group" ng-repeat="furniture in $ctrl.selected.furnitures">
+        <label for="">Name            </label>
+        <input type="text" class="form-control" ng-model="furniture.name"/>
+    </div>
+    <button ng-click="$ctrl.add()">
+        New
+    </button>
+</form>

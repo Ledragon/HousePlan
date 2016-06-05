@@ -3,7 +3,7 @@ export class furnitureProperties implements angular.IComponentOptions {
     templateUrl = 'components/furnitureProperties/furnitureProperties.html';
     controller = furniturePropertiesController;
     bindings = {
-        'selected': '=?'
+        'selected': '='
     };
 }
 

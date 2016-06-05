@@ -3,10 +3,11 @@
 
     </div>
     <div id="container">
-        <plan selected="$ctrl.selected"></plan>
+        <plan selected="$ctrl.selected" selected-furniture="$ctrl.selectedFurniture"></plan>
         {{$ctrl}}
     </div>
     <div id="contextual">
-        <furniture-properties></furniture-properties>
+        <room-properties selected="$ctrl.selected" ng-if="$ctrl.selected"></room-properties>
+        <furniture-properties selected="$ctrl.selectedFurniture"></furniture-properties>
     </div>
 </div>
