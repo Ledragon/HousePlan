@@ -1,6 +1,5 @@
 import d3 from 'd3';
 import { plan } from './plan';
-import { dataService } from '../../services/dataService';
 import { Iroom } from '../../models/Iroom';
 import { Ifurniture } from '../../models/Ifurniture';
 var p: plan;
@@ -19,30 +18,32 @@ export class planComponent implements angular.IComponentOptions {
     controller = planComponentController;
     bindings = {
         'selected': '=',
-        'selectedFurniture': '='
+        'selectedFurniture': '=',
+        rooms: '='
     };
 }
 
 class planComponentController {
+    rooms: Iroom[];
     selected: Iroom;
     selectedFurniture: Ifurniture;
-    static $inject = ['$scope','dataService'];
-    constructor($scope:angular.IScope,private _dataService: dataService) {
-
+    static $inject = ['$scope'];
+    constructor($scope: angular.IScope) {
+        $scope.$watch(() => this.rooms, () => {
+            console.log(this.rooms);
+            if (this.rooms) {
+                p.render(this.rooms);
+            }
+        }, true);
+        
         p.dispatch()
             .on('roomclicked', (d: Iroom) => {
                 this.selected = d;
                 $scope.$apply();
             })
             .on('furnitureclicked', (d: Ifurniture) => {
-                this.selectedFurniture= d;
+                this.selectedFurniture = d;
                 $scope.$apply();
-            });
-    }
-    $onInit() {
-        this._dataService.read('rooms')
-            .then(data => {
-                p.render(data.floors[0].rooms);
             });
     }
 }

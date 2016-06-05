@@ -5,8 +5,8 @@ import { Ifurniture } from './models/Ifurniture';
 
 export class plan {
 
-    private _width:number;
-    private _height:number;
+    private _width: number;
+    private _height: number;
     private _container: d3.Selection<any>;
     private _rooms: Array<room>;
     private _scale: d3.scale.Linear<number, number>;
@@ -183,14 +183,16 @@ export class plan {
             .remove();
         selection.enter()
             .append('g')
-            .classed('furniture', true)
+            // .classed('furniture', true)
             .on('click', (d) => {
                 this._dispatch.furnitureclicked(d);
                 d3.event.stopPropagation();
-            });
-        selection.attr('class', d => d.name)
-            .attr('transform', (d: Ifurniture) => `translate(${this._scale(d.x)},${this._scale(d.y)})`)
-            .append('rect')
+            })
+            .append('rect');
+        selection
+            .attr('class', d => d.name+' furniture')
+            .attr('transform', (d: Ifurniture) => `translate(${this._scale(d.x)},${this._scale(d.y)})`);
+        selection.select('rect')
             .attr({
                 'x': 0,
                 'y': 0,

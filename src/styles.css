@@ -26,6 +26,9 @@ html, body{
 #container{
     flex:2;
 }
+#contextual{
+    overflow-y: auto;
+}
 .menu-item{
     /*color: white;*/
     color:#441013;
@@ -44,6 +47,9 @@ line, path, .wall, .furniture{
 }
 .door path{
     fill:rgba(50,155,205, 1);
+}
+form{
+    padding: 5px;
 }
 .form-control{
     width:100%;
