@@ -17,21 +17,25 @@ export class planComponent implements angular.IComponentOptions {
     };
     controller = planComponentController;
     bindings = {
-        'selected': '=?'
-
+        'selected': '='
     };
 }
 
 class planComponentController {
     selected: Iroom;
-    constructor(dataService: dataService) {
-        dataService.read('rooms')
+    static $inject = ['$scope','dataService'];
+    constructor($scope:angular.IScope,private _dataService: dataService) {
+
+        p.dispatch()
+            .on('roomclicked', (d: Iroom) => {
+                this.selected = d;
+                $scope.$apply();
+            });
+    }
+    $onInit() {
+        this._dataService.read('rooms')
             .then(data => {
                 p.render(data.floors[0].rooms);
             });
-        p.dispatch()
-            .on('roomClicked', (d: Iroom) => {
-                this.selected = d;
-            })
     }
 }
