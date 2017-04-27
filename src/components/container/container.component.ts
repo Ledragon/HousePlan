@@ -18,7 +18,7 @@ class containerComponentController {
     }
     
     $onInit() {
-        this._dataService.read('rooms')
+        this._dataService.read('rooms.1')
             .then(data => {
                 this._model = data.data;
                 this.rooms = data.data.floors[0].rooms;
